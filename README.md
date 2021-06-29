@@ -47,7 +47,8 @@ namespace GeneratedCommand
     add { CommandManager.RequerySuggested += value; }
     remove { CommandManager.RequerySuggested -= value; }
   }
-  public Command(Action execute, Func<bool> canExecute = null) => (_execute, _canExecute) = (execute, canExecute);
+  public Command(Action execute, Func<bool> canExecute = null)
+    => (_execute, _canExecute) = (execute, canExecute);
   public bool CanExecute(object parameter) => true;
   public void Execute(object parameter) => _execute();
   }
@@ -70,8 +71,11 @@ namespace NOB.SampleProject.ViewModels
     get => new(ClearText1);
   }
   public event PropertyChangedEventHandler PropertyChanged;
-  public void OnPropertyChanged(string propertyName = null) { PropertyChanged?.Invoke(this, new(propertyName)); }
+  public void OnPropertyChanged(string propertyName = null) 
+  { 
+    PropertyChanged?.Invoke(this, new(propertyName)); 
   }
+ }
 }
 ```
 
