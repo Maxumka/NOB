@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using NOB.Generator.CodeBuilders;
 
 namespace NOB.Generator
 {
@@ -7,7 +8,13 @@ namespace NOB.Generator
     {
         public void Execute(GeneratorExecutionContext context)
         {
-            
+            if (context.SyntaxReceiver is not SyntaxReceiver syntaxReceiver) return;
+
+            var codeBuilder = new CodeBuilder(syntaxReceiver.ClassesInforamtion);
+
+            var sourceCode = codeBuilder.Build();
+
+            context.AddSource("GeneratedViewModel", sourceCode);
         }
 
         public void Initialize(GeneratorInitializationContext context)
