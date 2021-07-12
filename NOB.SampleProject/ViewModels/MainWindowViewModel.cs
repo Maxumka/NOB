@@ -8,8 +8,10 @@ namespace NOB.SampleProject.ViewModels
         [Property]
         private string text1;
 
-        [Command]
-        private void ClearText1() => PropertyText1 = "";
+        [Property]
+        private string text2;
+
+        public string Text3 => text1 + text2;
 
         public MainWindowViewModel() { }
     }

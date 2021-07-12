@@ -25,8 +25,12 @@
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Content="Text1"/>
             <TextBox Text="{Binding PropertyText1}"/>
-            <Button Content="Clear Text1"
-                    Command="{Binding CommandClearText1}"/>
+
+            <Label Content="Text2"/>
+            <TextBox Text="{Binding PropertyText2}"/>
+
+            <Label Content="Text3"/>
+            <TextBox Text="{Binding Text3, Mode=OneWay}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -1,7 +1,5 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace NOB.Generator.Information
 {
@@ -11,10 +9,19 @@ namespace NOB.Generator.Information
 
         public string Type { get; set; }
 
+        public string[] AdditionalProperties { get; set; } = new string[] { };
+
         public FieldInformation(FieldDeclarationSyntax fieldDeclarationSyntax)
         {
             Name = fieldDeclarationSyntax.Declaration.Variables.First().Identifier.ValueText;
             Type = fieldDeclarationSyntax.Declaration.Type.ToString();
+        }
+
+        public FieldInformation(FieldDeclarationSyntax fieldDeclarationSyntax, string[] additionalProperties)
+        {
+            Name = fieldDeclarationSyntax.Declaration.Variables.First().Identifier.ValueText;
+            Type = fieldDeclarationSyntax.Declaration.Type.ToString();
+            AdditionalProperties = additionalProperties;
         }
 
         public void Deconstruct(out string name, out string type)

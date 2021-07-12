@@ -36,7 +36,7 @@ namespace NOB.Generator
                 var fieldsInformation = classDeclaration.Members
                                                         .OfType<FieldDeclarationSyntax>()
                                                         .Where(f => f.AttributeLists.Any(a => a.ToString() is _propertyAttributeName))
-                                                        .Select(f => new FieldInformation(f));
+                                                        .Select(f => GetAdditionalProperties(f, classDeclaration));
 
                 var methodsInformation = classDeclaration.Members
                                                          .OfType<MethodDeclarationSyntax>()
@@ -53,6 +53,21 @@ namespace NOB.Generator
 
                 ClassesInforamtion.Add(classInformation);
             }
+        }
+
+        private FieldInformation GetAdditionalProperties(FieldDeclarationSyntax fieldDeclaration, ClassDeclarationSyntax classDeclaration)
+        {
+            var properties = classDeclaration.Members
+                                             .OfType<PropertyDeclarationSyntax>()
+                                             .Where(p => p.ExpressionBody.Expression.ToFullString().Contains(fieldDeclaration.Declaration.Variables.First().Identifier.ValueText))
+                                             .Select(p => p.Identifier.ValueText)
+                                             .ToArray();
+
+            return properties switch
+            {
+                { Length: var length } when length > 0 => new(fieldDeclaration, properties),
+                _                                      => new(fieldDeclaration)
+            };
         }
     }
 }
